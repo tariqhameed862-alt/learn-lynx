@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, GraduationCap, Users, Settings } from "lucide-react";
+import { Menu, X, GraduationCap } from "lucide-react";
 
 export const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,22 +37,8 @@ export const Navigation = () => {
             </div>
           </div>
 
-          {/* Role Switcher & CTA */}
+          {/* CTA */}
           <div className="hidden md:flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
-              <span className="role-badge role-badge-student">
-                <Users className="w-4 h-4 mr-1" />
-                Student
-              </span>
-              <span className="role-badge role-badge-teacher">
-                <GraduationCap className="w-4 h-4 mr-1" />
-                Teacher
-              </span>
-              <span className="role-badge role-badge-admin">
-                <Settings className="w-4 h-4 mr-1" />
-                Admin
-              </span>
-            </div>
             <Button className="btn-hero">Get Started</Button>
           </div>
 
@@ -81,21 +67,7 @@ export const Navigation = () => {
                 {item.name}
               </a>
             ))}
-            <div className="pt-4 space-y-2">
-              <div className="flex flex-wrap gap-2">
-                <span className="role-badge role-badge-student text-xs">
-                  <Users className="w-3 h-3 mr-1" />
-                  Student
-                </span>
-                <span className="role-badge role-badge-teacher text-xs">
-                  <GraduationCap className="w-3 h-3 mr-1" />
-                  Teacher
-                </span>
-                <span className="role-badge role-badge-admin text-xs">
-                  <Settings className="w-3 h-3 mr-1" />
-                  Admin
-                </span>
-              </div>
+            <div className="pt-4">
               <Button className="btn-hero w-full">Get Started</Button>
             </div>
           </div>
