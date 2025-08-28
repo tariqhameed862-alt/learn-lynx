@@ -2,95 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* My Uni Buddy Design System - Academic Excellence Theme */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Base colors */
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Card system */
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Interactive elements */
+    --popover: 240 5.9% 10%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Academic Primary - Deep University Blue */
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 98%;
+    --primary-light: 217 91% 70%;
+    --primary-dark: 217 91% 50%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Academic Secondary - Growth Green */
+    --secondary: 142 76% 36%;
+    --secondary-foreground: 0 0% 98%;
+    --secondary-light: 142 76% 46%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Success & Learning */
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 98%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Innovation Purple */
+    --accent: 263 85% 60%;
+    --accent-foreground: 0 0% 98%;
 
+    /* Muted academic tones */
+    --muted: 240 4.8% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    /* Alerts & warnings */
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 98%;
 
-    --radius: 0.5rem;
+    /* Borders & inputs */
+    --border: 240 5.9% 20%;
+    --input: 240 5.9% 20%;
+    --ring: 217 91% 60%;
 
-    --sidebar-background: 0 0% 98%;
+    /* Academic gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(217 91% 60%), hsl(263 85% 60%));
+    --gradient-success: linear-gradient(135deg, hsl(142 76% 36%), hsl(142 76% 46%));
+    --gradient-hero: linear-gradient(135deg, hsl(217 91% 60%) 0%, hsl(263 85% 60%) 50%, hsl(142 76% 36%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(240 5.9% 12%) 0%, hsl(240 4.8% 15.9%) 100%);
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Shadows with academic theme */
+    --shadow-sm: 0 1px 2px 0 hsl(217 91% 60% / 0.1);
+    --shadow-md: 0 4px 6px -1px hsl(217 91% 60% / 0.1), 0 2px 4px -1px hsl(217 91% 60% / 0.06);
+    --shadow-lg: 0 10px 15px -3px hsl(217 91% 60% / 0.1), 0 4px 6px -2px hsl(217 91% 60% / 0.05);
+    --shadow-glow: 0 0 40px hsl(217 91% 60% / 0.3);
 
-    --sidebar-primary: 240 5.9% 10%;
+    /* Academic spacing */
+    --radius: 0.75rem;
 
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    /* Sidebar academic theme */
     --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 15.9%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 240 5.9% 20%;
+    --sidebar-ring: 217 91% 60%;
+
+    /* Animation variables */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 }
 
@@ -100,6 +90,114 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
   }
+}
+
+@layer components {
+  /* Hero Button Variants */
+  .btn-hero {
+    @apply bg-gradient-to-r from-primary to-accent text-primary-foreground px-8 py-4 rounded-xl font-semibold text-lg;
+    @apply transition-all duration-300 hover:scale-105 hover:shadow-lg;
+    @apply border-2 border-transparent hover:border-primary/20;
+  }
+
+  .btn-hero-outline {
+    @apply border-2 border-primary/30 text-primary bg-background/10 backdrop-blur-sm px-8 py-4 rounded-xl font-semibold text-lg;
+    @apply transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:scale-105;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground px-6 py-3 rounded-lg font-medium;
+    @apply transition-all duration-300 hover:bg-secondary-light hover:scale-105;
+  }
+
+  /* Feature Cards */
+  .feature-card {
+    @apply bg-gradient-to-br from-card via-card to-muted/20 border border-border/50 rounded-2xl p-8;
+    @apply transition-all duration-500 hover:scale-105 hover:shadow-glow;
+    @apply backdrop-blur-sm hover:border-primary/30;
+  }
+
+  /* Glass effect */
+  .glass {
+    @apply bg-background/10 backdrop-blur-md border border-white/10;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent;
+  }
+
+  /* Floating animation */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Role badge */
+  .role-badge {
+    @apply inline-flex items-center px-4 py-2 rounded-full text-sm font-medium;
+    @apply transition-all duration-300 hover:scale-105;
+  }
+
+  .role-badge-student {
+    @apply bg-primary/20 text-primary border border-primary/30;
+  }
+
+  .role-badge-teacher {
+    @apply bg-secondary/20 text-secondary border border-secondary/30;
+  }
+
+  .role-badge-admin {
+    @apply bg-accent/20 text-accent border border-accent/30;
+  }
+}
+
+@layer utilities {
+  /* Custom animations */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slideInRight 0.8s ease-out forwards;
+  }
+
+  /* Stagger animation delays */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
 }
