@@ -53,8 +53,7 @@ export const LoginForm = ({ role, onLoginSuccess }: LoginFormProps) => {
   const IconComponent = config.icon;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-accent/5 p-4">
-      <Card className="w-full max-w-md feature-card">
+    <Card className="w-full max-w-md feature-card">
         <CardHeader className="space-y-4 text-center">
           <div className={`mx-auto w-12 h-12 rounded-full bg-${config.color}/20 flex items-center justify-center`}>
             <IconComponent className={`w-6 h-6 text-${config.color}`} />
@@ -184,6 +183,5 @@ export const LoginForm = ({ role, onLoginSuccess }: LoginFormProps) => {
           </div>
         </CardContent>
       </Card>
-    </div>
   );
 };

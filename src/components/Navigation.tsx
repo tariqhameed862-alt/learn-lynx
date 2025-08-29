@@ -39,6 +39,9 @@ export const Navigation = () => {
 
           {/* CTA */}
           <div className="hidden md:flex items-center space-x-4">
+            <Button asChild variant="outline" className="mr-2">
+              <a href="/login">Login</a>
+            </Button>
             <Button className="btn-hero">Get Started</Button>
           </div>
 
@@ -67,7 +70,10 @@ export const Navigation = () => {
                 {item.name}
               </a>
             ))}
-            <div className="pt-4">
+            <div className="pt-4 space-y-2">
+              <Button asChild variant="outline" className="w-full">
+                <a href="/login">Login</a>
+              </Button>
               <Button className="btn-hero w-full">Get Started</Button>
             </div>
           </div>
