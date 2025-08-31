@@ -1,15 +1,22 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { StudentDashboard } from "@/components/dashboard/StudentDashboard";
 import { TeacherDashboard } from "@/components/dashboard/TeacherDashboard";
 import { EnhancedAdminDashboard } from "@/components/dashboard/EnhancedAdminDashboard";
+import { StudentSidebar } from "@/components/dashboard/StudentSidebar";
+import { BooksPage } from "@/components/dashboard/student-pages/BooksPage";
+import { FYPStudioPage } from "@/components/dashboard/student-pages/FYPStudioPage";
+import { AskQuestionPage } from "@/components/dashboard/student-pages/AskQuestionPage";
+import { StudyGroupsPage } from "@/components/dashboard/student-pages/StudyGroupsPage";
 import { Users, GraduationCap, Settings, LogOut, Home } from "lucide-react";
 
 const Dashboard = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const role = searchParams.get("role") as "student" | "teacher" | "admin" || "student";
+  const page = searchParams.get("page") || "dashboard";
 
   const handleLogout = () => {
     navigate("/login");
@@ -45,16 +52,82 @@ const Dashboard = () => {
   const config = getRoleConfig();
   const IconComponent = config.icon;
 
+  const renderStudentPage = () => {
+    switch (page) {
+      case "books":
+        return <BooksPage />;
+      case "fyp-studio":
+        return <FYPStudioPage />;
+      case "ask-question":
+        return <AskQuestionPage />;
+      case "study-groups":
+        return <StudyGroupsPage />;
+      case "assignments":
+        return <div className="p-8 text-center text-muted-foreground">Assignments page coming soon...</div>;
+      case "schedule":
+        return <div className="p-8 text-center text-muted-foreground">Schedule page coming soon...</div>;
+      case "help":
+        return <div className="p-8 text-center text-muted-foreground">Help center coming soon...</div>;
+      default:
+        return <StudentDashboard />;
+    }
+  };
+
   const renderDashboardContent = () => {
     switch (role) {
       case "student":
-        return <StudentDashboard />;
+        return renderStudentPage();
       case "teacher":
         return <TeacherDashboard />;
       case "admin":
         return <EnhancedAdminDashboard />;
     }
   };
+
+  if (role === "student") {
+    return (
+      <SidebarProvider>
+        <div className="min-h-screen flex w-full bg-gradient-to-br from-background via-background to-accent/5">
+          <StudentSidebar />
+          <div className="flex-1 flex flex-col">
+            {/* Header */}
+            <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+              <div className="container mx-auto px-4 py-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <SidebarTrigger />
+                    <div className={`w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center`}>
+                      <IconComponent className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h1 className="text-2xl font-bold gradient-text">{config.title}</h1>
+                      <p className="text-sm text-muted-foreground">{config.description}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-3">
+                    <Button onClick={handleGoHome} variant="ghost" className="flex items-center gap-2">
+                      <Home className="w-4 h-4" />
+                      Home
+                    </Button>
+                    <Button onClick={handleLogout} variant="outline" className="flex items-center gap-2">
+                      <LogOut className="w-4 h-4" />
+                      Logout
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </header>
+
+            {/* Main Content */}
+            <main className="flex-1 container mx-auto px-4 py-8">
+              {renderDashboardContent()}
+            </main>
+          </div>
+        </div>
+      </SidebarProvider>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/5">
