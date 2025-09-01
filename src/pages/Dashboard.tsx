@@ -6,10 +6,15 @@ import { StudentDashboard } from "@/components/dashboard/StudentDashboard";
 import { TeacherDashboard } from "@/components/dashboard/TeacherDashboard";
 import { EnhancedAdminDashboard } from "@/components/dashboard/EnhancedAdminDashboard";
 import { StudentSidebar } from "@/components/dashboard/StudentSidebar";
+import { TeacherSidebar } from "@/components/dashboard/TeacherSidebar";
 import { BooksPage } from "@/components/dashboard/student-pages/BooksPage";
 import { FYPStudioPage } from "@/components/dashboard/student-pages/FYPStudioPage";
 import { AskQuestionPage } from "@/components/dashboard/student-pages/AskQuestionPage";
 import { StudyGroupsPage } from "@/components/dashboard/student-pages/StudyGroupsPage";
+import { AnswerQuestionsPage } from "@/components/dashboard/teacher-pages/AnswerQuestionsPage";
+import { ManageResourcesPage } from "@/components/dashboard/teacher-pages/ManageResourcesPage";
+import { FYPSupervisionPage } from "@/components/dashboard/teacher-pages/FYPSupervisionPage";
+import { StudentProgressPage } from "@/components/dashboard/teacher-pages/StudentProgressPage";
 import { Users, GraduationCap, Settings, LogOut, Home } from "lucide-react";
 
 const Dashboard = () => {
@@ -73,22 +78,47 @@ const Dashboard = () => {
     }
   };
 
+  const renderTeacherPage = () => {
+    switch (page) {
+      case "answer-questions":
+        return <AnswerQuestionsPage />;
+      case "manage-resources":
+        return <ManageResourcesPage />;
+      case "fyp-supervision":
+        return <FYPSupervisionPage />;
+      case "student-progress":
+        return <StudentProgressPage />;
+      case "course-management":
+        return <div className="p-8 text-center text-muted-foreground">Course Management page coming soon...</div>;
+      case "office-hours":
+        return <div className="p-8 text-center text-muted-foreground">Office Hours page coming soon...</div>;
+      case "assignments":
+        return <div className="p-8 text-center text-muted-foreground">Teacher Assignments page coming soon...</div>;
+      case "schedule":
+        return <div className="p-8 text-center text-muted-foreground">Teacher Schedule page coming soon...</div>;
+      default:
+        return <TeacherDashboard />;
+    }
+  };
+
   const renderDashboardContent = () => {
     switch (role) {
       case "student":
         return renderStudentPage();
       case "teacher":
-        return <TeacherDashboard />;
+        return renderTeacherPage();
       case "admin":
         return <EnhancedAdminDashboard />;
     }
   };
 
-  if (role === "student") {
+  if (role === "student" || role === "teacher") {
+    const SidebarComponent = role === "student" ? StudentSidebar : TeacherSidebar;
+    
     return (
       <SidebarProvider>
         <div className="min-h-screen flex w-full bg-gradient-to-br from-background via-background to-accent/5">
-          <StudentSidebar />
+          <SidebarComponent />
           <div className="flex-1 flex flex-col">
             {/* Header */}
             <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
