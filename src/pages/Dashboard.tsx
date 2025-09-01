@@ -7,6 +7,13 @@ import { TeacherDashboard } from "@/components/dashboard/TeacherDashboard";
 import { EnhancedAdminDashboard } from "@/components/dashboard/EnhancedAdminDashboard";
 import { StudentSidebar } from "@/components/dashboard/StudentSidebar";
 import { TeacherSidebar } from "@/components/dashboard/TeacherSidebar";
+import { AdminSidebar } from "@/components/dashboard/AdminSidebar";
+import { UsersPage } from "@/components/dashboard/admin-pages/UsersPage";
+import { RolesPage } from "@/components/dashboard/admin-pages/RolesPage";
+import { PermissionsPage } from "@/components/dashboard/admin-pages/PermissionsPage";
+import { PagesPage } from "@/components/dashboard/admin-pages/PagesPage";
+import { StudentsManagePage } from "@/components/dashboard/admin-pages/StudentsManagePage";
+import { TeachersManagePage } from "@/components/dashboard/admin-pages/TeachersManagePage";
 import { BooksPage } from "@/components/dashboard/student-pages/BooksPage";
 import { FYPStudioPage } from "@/components/dashboard/student-pages/FYPStudioPage";
 import { AskQuestionPage } from "@/components/dashboard/student-pages/AskQuestionPage";
@@ -101,6 +108,31 @@ const Dashboard = () => {
     }
   };
 
+  const renderAdminPage = () => {
+    switch (page) {
+      case "users":
+        return <UsersPage />;
+      case "roles":
+        return <RolesPage />;
+      case "permissions":
+        return <PermissionsPage />;
+      case "pages":
+        return <PagesPage />;
+      case "students":
+        return <StudentsManagePage />;
+      case "teachers":
+        return <TeachersManagePage />;
+      case "resources":
+        return <div className="p-8 text-center text-muted-foreground">Resources management coming soon...</div>;
+      case "analytics":
+        return <div className="p-8 text-center text-muted-foreground">Analytics dashboard coming soon...</div>;
+      case "settings":
+        return <div className="p-8 text-center text-muted-foreground">System settings coming soon...</div>;
+      default:
+        return <EnhancedAdminDashboard />;
+    }
+  };
+
   const renderDashboardContent = () => {
     switch (role) {
       case "student":
@@ -108,12 +140,12 @@ const Dashboard = () => {
       case "teacher":
         return renderTeacherPage();
       case "admin":
-        return <EnhancedAdminDashboard />;
+        return renderAdminPage();
     }
   };
 
-  if (role === "student" || role === "teacher") {
-    const SidebarComponent = role === "student" ? StudentSidebar : TeacherSidebar;
+  if (role === "student" || role === "teacher" || role === "admin") {
+    const SidebarComponent = role === "student" ? StudentSidebar : role === "teacher" ? TeacherSidebar : AdminSidebar;
     
     return (
       <SidebarProvider>
@@ -159,6 +191,7 @@ const Dashboard = () => {
     );
   }
 
+  // This fallback should never be reached since we handle all roles above
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-accent/5">
       {/* Header */}
