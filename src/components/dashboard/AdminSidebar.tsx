@@ -1,4 +1,4 @@
-import { Home, Users, Shield, FileText, GraduationCap, BookOpen, Settings, BarChart3 } from "lucide-react";
+import { Home, Users, Shield, FileText, GraduationCap, BookOpen, Settings, BarChart3, UserPlus, Award, Calendar, TrendingUp } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import {
   Sidebar,
@@ -44,22 +44,47 @@ const adminMenuItems = [
     ],
   },
   {
-    title: "Academic Management",
+    title: "Student Management",
     items: [
       {
-        title: "Students",
+        title: "Students Overview",
         url: "?role=admin&page=students",
         icon: GraduationCap,
       },
       {
-        title: "Teachers",
+        title: "Admissions",
+        url: "?role=admin&page=student-admissions",
+        icon: UserPlus,
+      },
+      {
+        title: "Grades & Transcripts",
+        url: "?role=admin&page=student-grades",
+        icon: Award,
+      },
+      {
+        title: "Attendance",
+        url: "?role=admin&page=student-attendance",
+        icon: Calendar,
+      },
+    ],
+  },
+  {
+    title: "Teacher Management",
+    items: [
+      {
+        title: "Teachers Overview",
         url: "?role=admin&page=teachers",
         icon: Users,
       },
       {
-        title: "Resources",
-        url: "?role=admin&page=resources",
-        icon: BookOpen,
+        title: "Assignments",
+        url: "?role=admin&page=teacher-assignments",
+        icon: Calendar,
+      },
+      {
+        title: "Performance",
+        url: "?role=admin&page=teacher-performance",
+        icon: TrendingUp,
       },
     ],
   },
@@ -73,7 +98,7 @@ const adminMenuItems = [
       },
       {
         title: "Settings",
-        url: "?role=admin&page=settings",
+        url: "?role=admin&page=system-settings",
         icon: Settings,
       },
     ],

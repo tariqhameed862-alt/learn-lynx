@@ -14,6 +14,12 @@ import { PermissionsPage } from "@/components/dashboard/admin-pages/PermissionsP
 import { PagesPage } from "@/components/dashboard/admin-pages/PagesPage";
 import { StudentsManagePage } from "@/components/dashboard/admin-pages/StudentsManagePage";
 import { TeachersManagePage } from "@/components/dashboard/admin-pages/TeachersManagePage";
+import { StudentAdmissionsPage } from "@/components/dashboard/admin-pages/StudentAdmissionsPage";
+import { StudentGradesPage } from "@/components/dashboard/admin-pages/StudentGradesPage";
+import { StudentAttendancePage } from "@/components/dashboard/admin-pages/StudentAttendancePage";
+import { TeacherAssignmentsPage } from "@/components/dashboard/admin-pages/TeacherAssignmentsPage";
+import { TeacherPerformancePage } from "@/components/dashboard/admin-pages/TeacherPerformancePage";
+import { SystemSettingsPage } from "@/components/dashboard/admin-pages/SystemSettingsPage";
 import { BooksPage } from "@/components/dashboard/student-pages/BooksPage";
 import { FYPStudioPage } from "@/components/dashboard/student-pages/FYPStudioPage";
 import { AskQuestionPage } from "@/components/dashboard/student-pages/AskQuestionPage";
@@ -120,14 +126,22 @@ const Dashboard = () => {
         return <PagesPage />;
       case "students":
         return <StudentsManagePage />;
+      case "student-admissions":
+        return <StudentAdmissionsPage />;
+      case "student-grades":
+        return <StudentGradesPage />;
+      case "student-attendance":
+        return <StudentAttendancePage />;
       case "teachers":
         return <TeachersManagePage />;
-      case "resources":
-        return <div className="p-8 text-center text-muted-foreground">Resources management coming soon...</div>;
+      case "teacher-assignments":
+        return <TeacherAssignmentsPage />;
+      case "teacher-performance":
+        return <TeacherPerformancePage />;
+      case "system-settings":
+        return <SystemSettingsPage />;
       case "analytics":
         return <div className="p-8 text-center text-muted-foreground">Analytics dashboard coming soon...</div>;
-      case "settings":
-        return <div className="p-8 text-center text-muted-foreground">System settings coming soon...</div>;
       default:
         return <EnhancedAdminDashboard />;
     }
