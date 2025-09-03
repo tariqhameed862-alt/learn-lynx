@@ -1,4 +1,4 @@
-import { Home, Users, Shield, FileText, GraduationCap, BookOpen, Settings, BarChart3, UserPlus, MessageCircle, Calendar, TrendingUp } from "lucide-react";
+import { Home, Users, Shield, FileText, GraduationCap, BookOpen, Settings, BarChart3, UserPlus, MessageCircle, Calendar, TrendingUp, ChevronDown } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import {
   Sidebar,
@@ -11,6 +11,13 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const adminMenuItems = [
   {
@@ -127,9 +134,9 @@ export function AdminSidebar() {
 
   return (
     <Sidebar className={state === "collapsed" ? "w-14" : "w-64"} collapsible="icon">
-      <SidebarContent>
+      <SidebarContent className="custom-scrollbar">
         <SidebarGroup>
-          <SidebarGroupLabel className="text-lg font-semibold text-primary">
+          <SidebarGroupLabel className="text-lg font-semibold text-primary px-4 py-3">
             Admin Panel
           </SidebarGroupLabel>
           <SidebarGroupContent>
@@ -138,7 +145,7 @@ export function AdminSidebar() {
                 <SidebarMenuButton asChild>
                   <a
                     href={adminMenuItems[0].url}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
+                    className={`flex items-center gap-3 px-3 py-2 mx-2 rounded-lg transition-colors ${
                       isActive(adminMenuItems[0].url)
                         ? "bg-primary text-primary-foreground"
                         : "hover:bg-accent"
@@ -153,34 +160,71 @@ export function AdminSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {adminMenuItems.slice(1).map((section, index) => (
-          <SidebarGroup key={index}>
-            <SidebarGroupLabel className="text-sm font-medium text-muted-foreground">
-              {state !== "collapsed" && section.title}
-            </SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {section.items?.map((item, itemIndex) => (
-                  <SidebarMenuItem key={itemIndex}>
-                    <SidebarMenuButton asChild>
-                      <a
-                        href={item.url}
-                        className={`flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
-                          isActive(item.url)
-                            ? "bg-primary text-primary-foreground"
-                            : "hover:bg-accent"
-                        }`}
-                      >
-                        <item.icon className="w-5 h-5" />
-                        {state !== "collapsed" && <span>{item.title}</span>}
-                      </a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        ))}
+        <ScrollArea className="flex-1 px-2">
+          {state !== "collapsed" ? (
+            <Accordion type="multiple" className="w-full space-y-2">
+              {adminMenuItems.slice(1).map((section, index) => (
+                <AccordionItem 
+                  key={index} 
+                  value={`section-${index}`}
+                  className="border border-border/30 rounded-lg bg-card/30"
+                >
+                  <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-accent/50 rounded-lg">
+                    <span className="text-sm font-medium text-foreground">
+                      {section.title}
+                    </span>
+                  </AccordionTrigger>
+                  <AccordionContent className="pb-2">
+                    <SidebarMenu className="space-y-1">
+                      {section.items?.map((item, itemIndex) => (
+                        <SidebarMenuItem key={itemIndex}>
+                          <SidebarMenuButton asChild>
+                            <a
+                              href={item.url}
+                              className={`flex items-center gap-3 px-4 py-2 mx-2 rounded-md transition-colors text-sm ${
+                                isActive(item.url)
+                                  ? "bg-primary text-primary-foreground"
+                                  : "hover:bg-accent text-muted-foreground hover:text-foreground"
+                              }`}
+                            >
+                              <item.icon className="w-4 h-4" />
+                              <span>{item.title}</span>
+                            </a>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      ))}
+                    </SidebarMenu>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          ) : (
+            // Collapsed state - show only icons
+            <div className="space-y-2">
+              {adminMenuItems.slice(1).map((section, index) => (
+                <div key={index} className="space-y-1">
+                  {section.items?.map((item, itemIndex) => (
+                    <SidebarMenuItem key={itemIndex}>
+                      <SidebarMenuButton asChild>
+                        <a
+                          href={item.url}
+                          className={`flex items-center justify-center w-10 h-10 rounded-lg transition-colors ${
+                            isActive(item.url)
+                              ? "bg-primary text-primary-foreground"
+                              : "hover:bg-accent"
+                          }`}
+                          title={item.title}
+                        >
+                          <item.icon className="w-5 h-5" />
+                        </a>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
+        </ScrollArea>
       </SidebarContent>
     </Sidebar>
   );
