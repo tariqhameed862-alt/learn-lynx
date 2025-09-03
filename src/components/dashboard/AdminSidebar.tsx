@@ -1,4 +1,4 @@
-import { Home, Users, Shield, FileText, GraduationCap, BookOpen, Settings, BarChart3, UserPlus, Award, Calendar, TrendingUp } from "lucide-react";
+import { Home, Users, Shield, FileText, GraduationCap, BookOpen, Settings, BarChart3, UserPlus, MessageCircle, Calendar, TrendingUp } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 import {
   Sidebar,
@@ -44,27 +44,37 @@ const adminMenuItems = [
     ],
   },
   {
+    title: "Academic Management",
+    items: [
+      {
+        title: "Books & Library",
+        url: "?role=admin&page=books-management",
+        icon: BookOpen,
+      },
+      {
+        title: "FYP Projects",
+        url: "?role=admin&page=fyp-projects",
+        icon: GraduationCap,
+      },
+      {
+        title: "Q&A Monitoring",
+        url: "?role=admin&page=qa-monitoring",
+        icon: MessageCircle,
+      },
+    ],
+  },
+  {
     title: "Student Management",
     items: [
       {
         title: "Students Overview",
         url: "?role=admin&page=students",
-        icon: GraduationCap,
+        icon: Users,
       },
       {
         title: "Admissions",
         url: "?role=admin&page=student-admissions",
         icon: UserPlus,
-      },
-      {
-        title: "Grades & Transcripts",
-        url: "?role=admin&page=student-grades",
-        icon: Award,
-      },
-      {
-        title: "Attendance",
-        url: "?role=admin&page=student-attendance",
-        icon: Calendar,
       },
     ],
   },

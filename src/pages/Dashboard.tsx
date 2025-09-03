@@ -15,11 +15,12 @@ import { PagesPage } from "@/components/dashboard/admin-pages/PagesPage";
 import { StudentsManagePage } from "@/components/dashboard/admin-pages/StudentsManagePage";
 import { TeachersManagePage } from "@/components/dashboard/admin-pages/TeachersManagePage";
 import { StudentAdmissionsPage } from "@/components/dashboard/admin-pages/StudentAdmissionsPage";
-import { StudentGradesPage } from "@/components/dashboard/admin-pages/StudentGradesPage";
-import { StudentAttendancePage } from "@/components/dashboard/admin-pages/StudentAttendancePage";
 import { TeacherAssignmentsPage } from "@/components/dashboard/admin-pages/TeacherAssignmentsPage";
 import { TeacherPerformancePage } from "@/components/dashboard/admin-pages/TeacherPerformancePage";
 import { SystemSettingsPage } from "@/components/dashboard/admin-pages/SystemSettingsPage";
+import { BooksManagementPage } from "@/components/dashboard/admin-pages/BooksManagementPage";
+import { FYPProjectsPage } from "@/components/dashboard/admin-pages/FYPProjectsPage";
+import { QAMonitoringPage } from "@/components/dashboard/admin-pages/QAMonitoringPage";
 import { BooksPage } from "@/components/dashboard/student-pages/BooksPage";
 import { FYPStudioPage } from "@/components/dashboard/student-pages/FYPStudioPage";
 import { AskQuestionPage } from "@/components/dashboard/student-pages/AskQuestionPage";
@@ -124,14 +125,16 @@ const Dashboard = () => {
         return <PermissionsPage />;
       case "pages":
         return <PagesPage />;
+      case "books-management":
+        return <BooksManagementPage />;
+      case "fyp-projects":
+        return <FYPProjectsPage />;
+      case "qa-monitoring":
+        return <QAMonitoringPage />;
       case "students":
         return <StudentsManagePage />;
       case "student-admissions":
         return <StudentAdmissionsPage />;
-      case "student-grades":
-        return <StudentGradesPage />;
-      case "student-attendance":
-        return <StudentAttendancePage />;
       case "teachers":
         return <TeachersManagePage />;
       case "teacher-assignments":
