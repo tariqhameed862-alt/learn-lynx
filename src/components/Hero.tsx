@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -9,34 +9,58 @@ import {
   GraduationCap, 
   Settings,
   ArrowRight,
-  Sparkles
+  Sparkles,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 
 export const Hero = () => {
-  const [selectedRole, setSelectedRole] = useState<"student" | "teacher" | "admin">("student");
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const roleContent = {
-    student: {
+  const roleContent = [
+    {
+      role: "student",
       title: "Ask anything, anytime.",
       subtitle: "From assignments to FYPs—get AI answers and mentor guidance in one place.",
       features: ["AI-Powered Q&A", "FYP Guidance", "Assignment Help", "Resource Discovery"],
-      cta: "Get Help Now"
+      cta: "Get Help Now",
+      icon: Users,
+      gradient: "from-blue-500/20 to-purple-500/20"
     },
-    teacher: {
+    {
+      role: "teacher",
       title: "Mentor the next generation.",
       subtitle: "Guide students, share knowledge, and build academic excellence together.",
       features: ["Student Q&A Queue", "FYP Mentorship", "Resource Curation", "Progress Tracking"],
-      cta: "Become a Mentor"
+      cta: "Become a Mentor",
+      icon: GraduationCap,
+      gradient: "from-green-500/20 to-emerald-500/20"
     },
-    admin: {
+    {
+      role: "admin",
       title: "Manage academic excellence.",
       subtitle: "Oversee the platform, moderate content, and drive educational success.",
       features: ["User Management", "Content Moderation", "Analytics Dashboard", "System Config"],
-      cta: "Admin Access"
+      cta: "Admin Access",
+      icon: Settings,
+      gradient: "from-orange-500/20 to-red-500/20"
     }
+  ];
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % roleContent.length);
   };
 
-  const currentContent = roleContent[selectedRole];
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + roleContent.length) % roleContent.length);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(nextSlide, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentContent = roleContent[currentSlide];
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -50,45 +74,41 @@ export const Hero = () => {
       <div className="absolute bottom-20 left-20 w-24 h-24 bg-secondary/20 rounded-full blur-xl float delay-300" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        {/* Role Switcher */}
-        <div className="flex justify-center mb-8 animate-fade-in-up">
-          <div className="glass rounded-2xl p-2">
-            <div className="flex space-x-1">
-              <button
-                onClick={() => setSelectedRole("student")}
-                className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
-                  selectedRole === "student" 
-                    ? "bg-primary text-primary-foreground shadow-lg" 
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <Users className="w-4 h-4 inline mr-2" />
-                Student
-              </button>
-              <button
-                onClick={() => setSelectedRole("teacher")}
-                className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
-                  selectedRole === "teacher" 
-                    ? "bg-secondary text-secondary-foreground shadow-lg" 
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <GraduationCap className="w-4 h-4 inline mr-2" />
-                Teacher
-              </button>
-              <button
-                onClick={() => setSelectedRole("admin")}
-                className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
-                  selectedRole === "admin" 
-                    ? "bg-accent text-accent-foreground shadow-lg" 
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <Settings className="w-4 h-4 inline mr-2" />
-                Admin
-              </button>
+        {/* Slider Controls */}
+        <div className="flex justify-center items-center mb-8 animate-fade-in-up">
+          <button 
+            onClick={prevSlide}
+            className="p-3 rounded-full glass hover:bg-primary/10 transition-all duration-300 mr-4"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          
+          <div className="flex items-center space-x-4">
+            <div className={`p-3 rounded-xl bg-gradient-to-r ${currentContent.gradient} border border-border/20`}>
+              <currentContent.icon className="w-6 h-6 text-primary" />
+            </div>
+            <div className="text-center">
+              <h3 className="text-lg font-semibold capitalize">{currentContent.role}</h3>
+              <div className="flex space-x-1 mt-2">
+                {roleContent.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === currentSlide ? "bg-primary w-6" : "bg-muted-foreground/30"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
+          
+          <button 
+            onClick={nextSlide}
+            className="p-3 rounded-full glass hover:bg-primary/10 transition-all duration-300 ml-4"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
         </div>
 
         {/* Main Content */}
