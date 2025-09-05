@@ -4,26 +4,28 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Eye, EyeOff, Mail, Lock, User, GraduationCap, Shield } from "lucide-react";
 
 interface LoginFormProps {
-  role: "student" | "teacher" | "admin";
-  onLoginSuccess: () => void;
+  onLoginSuccess: (role: "student" | "teacher" | "admin") => void;
 }
 
-export const LoginForm = ({ role, onLoginSuccess }: LoginFormProps) => {
+export const LoginForm = ({ onLoginSuccess }: LoginFormProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [selectedRole, setSelectedRole] = useState<"student" | "teacher" | "admin">("student");
   const [isLogin, setIsLogin] = useState(true);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Simulate login success
-    setTimeout(() => onLoginSuccess(), 1000);
+    setTimeout(() => onLoginSuccess(selectedRole), 1000);
   };
 
-  const getRoleConfig = () => {
+  const getRoleConfig = (role: "student" | "teacher" | "admin") => {
     switch (role) {
       case "student":
         return {
@@ -49,7 +51,7 @@ export const LoginForm = ({ role, onLoginSuccess }: LoginFormProps) => {
     }
   };
 
-  const config = getRoleConfig();
+  const config = getRoleConfig(selectedRole);
   const IconComponent = config.icon;
 
   return (
@@ -73,6 +75,35 @@ export const LoginForm = ({ role, onLoginSuccess }: LoginFormProps) => {
 
             <TabsContent value="login">
               <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="role">Select Role</Label>
+                  <Select value={selectedRole} onValueChange={(value: "student" | "teacher" | "admin") => setSelectedRole(value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select your role" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="student">
+                        <div className="flex items-center gap-2">
+                          <User className="h-4 w-4" />
+                          Student
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="teacher">
+                        <div className="flex items-center gap-2">
+                          <GraduationCap className="h-4 w-4" />
+                          Teacher
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="admin">
+                        <div className="flex items-center gap-2">
+                          <Shield className="h-4 w-4" />
+                          Admin
+                        </div>
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
                   <div className="relative">
@@ -121,6 +152,35 @@ export const LoginForm = ({ role, onLoginSuccess }: LoginFormProps) => {
             <TabsContent value="signup">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
+                  <Label htmlFor="role-signup">Select Role</Label>
+                  <Select value={selectedRole} onValueChange={(value: "student" | "teacher" | "admin") => setSelectedRole(value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select your role" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="student">
+                        <div className="flex items-center gap-2">
+                          <User className="h-4 w-4" />
+                          Student
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="teacher">
+                        <div className="flex items-center gap-2">
+                          <GraduationCap className="h-4 w-4" />
+                          Teacher
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="admin">
+                        <div className="flex items-center gap-2">
+                          <Shield className="h-4 w-4" />
+                          Admin
+                        </div>
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
                   <Label htmlFor="name">Full Name</Label>
                   <div className="relative">
                     <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
@@ -128,6 +188,8 @@ export const LoginForm = ({ role, onLoginSuccess }: LoginFormProps) => {
                       id="name"
                       type="text"
                       placeholder="Enter your full name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                       className="pl-10"
                       required
                     />

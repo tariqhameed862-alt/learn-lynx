@@ -25,7 +25,7 @@ export const Dashboard = () => {
 
   const renderDashboardContent = (role: "student" | "teacher" | "admin") => {
     if (!isLoggedIn[role]) {
-      return <LoginForm role={role} onLoginSuccess={() => handleLogin(role)} />;
+      return <LoginForm onLoginSuccess={(selectedRole) => handleLogin(selectedRole)} />;
     }
 
     switch (role) {

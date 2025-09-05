@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Menu, X, GraduationCap } from "lucide-react";
 
 export const Navigation = () => {
@@ -39,6 +40,7 @@ export const Navigation = () => {
 
           {/* CTA */}
           <div className="hidden md:flex items-center space-x-4">
+            <ThemeToggle />
             <Button asChild variant="outline" className="mr-2">
               <a href="/login">Login</a>
             </Button>
@@ -71,6 +73,9 @@ export const Navigation = () => {
               </a>
             ))}
             <div className="pt-4 space-y-2">
+              <div className="flex items-center justify-center pb-2">
+                <ThemeToggle />
+              </div>
               <Button asChild variant="outline" className="w-full">
                 <a href="/login">Login</a>
               </Button>
