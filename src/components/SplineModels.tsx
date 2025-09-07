@@ -26,7 +26,7 @@ export const WorldGlobeModel = () => {
     <div className="w-full h-[400px] lg:h-[500px] rounded-xl overflow-hidden">
       <Suspense fallback={<SplineLoader />}>
         <Spline 
-          scene="https://prod.spline.design/VWOYCnw6e5kJ2nIr/scene.splinecode"
+          scene="https://prod.spline.design/pwpEr7d5CjKABNa2/scene.splinecode"
           className="w-full h-full"
         />
       </Suspense>
@@ -39,7 +39,7 @@ export const TechStackModel = () => {
     <div className="w-full h-[350px] lg:h-[450px] rounded-xl overflow-hidden">
       <Suspense fallback={<SplineLoader />}>
         <Spline 
-          scene="https://prod.spline.design/L1d1icpBKlmkG7J0/scene.splinecode"
+          scene="https://prod.spline.design/1tLKEkxSyPHhEw6D/scene.splinecode"
           className="w-full h-full"
         />
       </Suspense>
