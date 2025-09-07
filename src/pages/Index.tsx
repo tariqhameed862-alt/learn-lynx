@@ -4,6 +4,9 @@ import Stats from "@/components/Stats";
 import { QADemo } from "@/components/QADemo";
 import ProcessSteps from "@/components/ProcessSteps";
 import FeaturesGrid from "@/components/FeaturesGrid";
+import TechShowcase from "@/components/TechShowcase";
+import GlobalReach from "@/components/GlobalReach";
+import Innovation from "@/components/Innovation";
 import { Showcase } from "@/components/Showcase";
 import LatestUpdates from "@/components/LatestUpdates";
 import CallToAction from "@/components/CallToAction";
@@ -17,8 +20,11 @@ const Index = () => {
       <Hero />
       <Stats />
       <QADemo />
+      <TechShowcase />
       <ProcessSteps />
       <FeaturesGrid />
+      <GlobalReach />
+      <Innovation />
       <Showcase />
       <LatestUpdates />
       <CallToAction />
