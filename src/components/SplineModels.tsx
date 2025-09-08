@@ -15,6 +15,7 @@ export const ComputerModel = () => {
         <Spline 
           scene="https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode" 
           className="w-full h-full"
+          onError={(error) => console.warn('Spline error:', error)}
         />
       </Suspense>
     </div>
@@ -26,8 +27,9 @@ export const WorldGlobeModel = () => {
     <div className="w-full h-[400px] lg:h-[500px] rounded-xl overflow-hidden">
       <Suspense fallback={<SplineLoader />}>
         <Spline 
-          scene="https://prod.spline.design/pwpEr7d5CjKABNa2/scene.splinecode"
+          scene="https://prod.spline.design/6HRlT8GXxjjj6p8g/scene.splinecode"
           className="w-full h-full"
+          onError={(error) => console.warn('Spline error:', error)}
         />
       </Suspense>
     </div>
@@ -39,8 +41,9 @@ export const TechStackModel = () => {
     <div className="w-full h-[350px] lg:h-[450px] rounded-xl overflow-hidden">
       <Suspense fallback={<SplineLoader />}>
         <Spline 
-          scene="https://prod.spline.design/1tLKEkxSyPHhEw6D/scene.splinecode"
+          scene="https://prod.spline.design/lVrKyJLBBJB5zRNW/scene.splinecode"
           className="w-full h-full"
+          onError={(error) => console.warn('Spline error:', error)}
         />
       </Suspense>
     </div>
