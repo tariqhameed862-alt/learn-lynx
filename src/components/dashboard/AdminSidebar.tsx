@@ -83,6 +83,11 @@ const adminMenuItems = [
         url: "?role=admin&page=student-admissions",
         icon: UserPlus,
       },
+      {
+        title: "Meeting Requests",
+        url: "?role=admin&page=meeting-requests",
+        icon: Calendar,
+      },
     ],
   },
   {

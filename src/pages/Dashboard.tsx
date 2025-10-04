@@ -21,10 +21,12 @@ import { SystemSettingsPage } from "@/components/dashboard/admin-pages/SystemSet
 import { BooksManagementPage } from "@/components/dashboard/admin-pages/BooksManagementPage";
 import { FYPProjectsPage } from "@/components/dashboard/admin-pages/FYPProjectsPage";
 import { QAMonitoringPage } from "@/components/dashboard/admin-pages/QAMonitoringPage";
+import MeetingRequestsPage from "@/components/dashboard/admin-pages/MeetingRequestsPage";
 import { BooksPage } from "@/components/dashboard/student-pages/BooksPage";
 import { FYPStudioPage } from "@/components/dashboard/student-pages/FYPStudioPage";
 import { AskQuestionPage } from "@/components/dashboard/student-pages/AskQuestionPage";
 import { StudyGroupsPage } from "@/components/dashboard/student-pages/StudyGroupsPage";
+import ScheduleMeetingPage from "@/components/dashboard/student-pages/ScheduleMeetingPage";
 import { AnswerQuestionsPage } from "@/components/dashboard/teacher-pages/AnswerQuestionsPage";
 import { ManageResourcesPage } from "@/components/dashboard/teacher-pages/ManageResourcesPage";
 import { FYPSupervisionPage } from "@/components/dashboard/teacher-pages/FYPSupervisionPage";
@@ -84,7 +86,7 @@ const Dashboard = () => {
       case "assignments":
         return <div className="p-8 text-center text-muted-foreground">Assignments page coming soon...</div>;
       case "schedule":
-        return <div className="p-8 text-center text-muted-foreground">Schedule page coming soon...</div>;
+        return <ScheduleMeetingPage />;
       case "help":
         return <div className="p-8 text-center text-muted-foreground">Help center coming soon...</div>;
       default:
@@ -143,6 +145,8 @@ const Dashboard = () => {
         return <TeacherPerformancePage />;
       case "system-settings":
         return <SystemSettingsPage />;
+      case "meeting-requests":
+        return <MeetingRequestsPage />;
       case "analytics":
         return <div className="p-8 text-center text-muted-foreground">Analytics dashboard coming soon...</div>;
       default:
