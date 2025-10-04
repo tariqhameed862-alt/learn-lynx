@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Book, Search, Plus, Edit, Trash2, Eye, Download, Users } from "lucide-react";
+import { Book, Search, Plus, Edit, Trash2, Eye, Download, Users, Upload, Image as ImageIcon } from "lucide-react";
 
 const mockBooks = [
   {
@@ -57,6 +57,39 @@ export function BooksManagementPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [coverImage, setCoverImage] = useState<File | null>(null);
+  const [coverImagePreview, setCoverImagePreview] = useState<string>("");
+  const [bookPdf, setBookPdf] = useState<File | null>(null);
+
+  const handleCoverImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && file.type.startsWith('image/')) {
+      setCoverImage(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCoverImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handlePdfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && file.type === 'application/pdf') {
+      setBookPdf(file);
+    }
+  };
+
+  const handleAddBook = () => {
+    // Here you would handle the actual book creation with file uploads
+    console.log('Cover Image:', coverImage);
+    console.log('Book PDF:', bookPdf);
+    // Reset form
+    setCoverImage(null);
+    setCoverImagePreview("");
+    setBookPdf(null);
+    setIsAddDialogOpen(false);
+  };
 
   const categories = ["Computer Science", "Software Engineering", "AI/ML", "Mathematics", "Physics"];
   
@@ -130,6 +163,68 @@ export function BooksManagementPage() {
                 <Label htmlFor="location">Location</Label>
                 <Input id="location" placeholder="Section A-1" />
               </div>
+              
+              {/* Cover Image Upload */}
+              <div className="space-y-2">
+                <Label htmlFor="coverImage">Book Cover Image</Label>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="coverImage" className="cursor-pointer">
+                    <div className="flex items-center justify-center w-full h-32 border-2 border-dashed rounded-lg hover:border-primary transition-colors">
+                      {coverImagePreview ? (
+                        <img src={coverImagePreview} alt="Cover preview" className="h-full object-contain rounded-lg" />
+                      ) : (
+                        <div className="text-center">
+                          <ImageIcon className="mx-auto h-8 w-8 text-muted-foreground mb-2" />
+                          <span className="text-sm text-muted-foreground">Click to upload cover</span>
+                        </div>
+                      )}
+                    </div>
+                  </label>
+                  <Input 
+                    id="coverImage" 
+                    type="file" 
+                    accept="image/*"
+                    onChange={handleCoverImageChange}
+                    className="hidden"
+                  />
+                  {coverImage && (
+                    <p className="text-xs text-muted-foreground">{coverImage.name}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* PDF Upload */}
+              <div className="space-y-2">
+                <Label htmlFor="bookPdf">Book PDF File</Label>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="bookPdf" className="cursor-pointer">
+                    <div className="flex items-center justify-center w-full h-32 border-2 border-dashed rounded-lg hover:border-primary transition-colors">
+                      {bookPdf ? (
+                        <div className="text-center">
+                          <Upload className="mx-auto h-8 w-8 text-green-600 mb-2" />
+                          <span className="text-sm font-medium">{bookPdf.name}</span>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            {(bookPdf.size / 1024 / 1024).toFixed(2)} MB
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="text-center">
+                          <Upload className="mx-auto h-8 w-8 text-muted-foreground mb-2" />
+                          <span className="text-sm text-muted-foreground">Click to upload PDF</span>
+                        </div>
+                      )}
+                    </div>
+                  </label>
+                  <Input 
+                    id="bookPdf" 
+                    type="file" 
+                    accept="application/pdf"
+                    onChange={handlePdfChange}
+                    className="hidden"
+                  />
+                </div>
+              </div>
+              
               <div className="col-span-2 space-y-2">
                 <Label htmlFor="description">Description</Label>
                 <Textarea id="description" placeholder="Book description" />
@@ -137,7 +232,7 @@ export function BooksManagementPage() {
             </div>
             <div className="flex justify-end gap-2 mt-4">
               <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>Cancel</Button>
-              <Button onClick={() => setIsAddDialogOpen(false)}>Add Book</Button>
+              <Button onClick={handleAddBook}>Add Book</Button>
             </div>
           </DialogContent>
         </Dialog>
