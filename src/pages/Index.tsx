@@ -8,6 +8,7 @@ import TechShowcase from "@/components/TechShowcase";
 import GlobalReach from "@/components/GlobalReach";
 import Innovation from "@/components/Innovation";
 import { Showcase } from "@/components/Showcase";
+import Testimonials from "@/components/Testimonials";
 import LatestUpdates from "@/components/LatestUpdates";
 import CallToAction from "@/components/CallToAction";
 import { Footer } from "@/components/Footer";
@@ -26,6 +27,7 @@ const Index = () => {
       <GlobalReach />
       <Innovation />
       <Showcase />
+      <Testimonials />
       <LatestUpdates />
       <CallToAction />
       <Footer />
