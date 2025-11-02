@@ -1,5 +1,14 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { 
   Users, 
   BookOpen, 
@@ -7,7 +16,9 @@ import {
   Video,
   GraduationCap,
   TrendingUp,
-  ArrowUpRight
+  ArrowUpRight,
+  LogOut,
+  ChevronDown
 } from "lucide-react";
 
 export const EnhancedAdminDashboard = () => {
@@ -74,14 +85,63 @@ export const EnhancedAdminDashboard = () => {
     }
   ];
 
+  const adminUser = {
+    name: "Admin User",
+    email: "admin@university.edu",
+    role: "Administrator",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Admin"
+  };
+
+  const handleLogout = () => {
+    console.log("Logging out...");
+    // Add logout logic here
+  };
+
   return (
     <div className="space-y-8 p-6">
-      {/* Header */}
-      <div className="text-center space-y-2">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent animate-fade-in">
-          Admin Dashboard
-        </h1>
-        <p className="text-muted-foreground text-lg">Real-time platform statistics and insights</p>
+      {/* Header with Avatar */}
+      <div className="flex items-center justify-between">
+        <div className="space-y-2">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-primary bg-clip-text text-transparent animate-fade-in">
+            Admin Dashboard
+          </h1>
+          <p className="text-muted-foreground text-lg">Real-time platform statistics and insights</p>
+        </div>
+
+        {/* User Avatar with Dropdown */}
+        <DropdownMenu>
+          <DropdownMenuTrigger className="focus:outline-none">
+            <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-muted/50 transition-all duration-200 cursor-pointer group">
+              <Avatar className="h-12 w-12 border-2 border-primary/20 group-hover:border-primary/40 transition-all">
+                <AvatarImage src={adminUser.avatar} alt={adminUser.name} />
+                <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-white font-bold">
+                  {adminUser.name.split(' ').map(n => n[0]).join('')}
+                </AvatarFallback>
+              </Avatar>
+              <div className="text-left hidden md:block">
+                <p className="text-sm font-semibold">{adminUser.name}</p>
+                <p className="text-xs text-muted-foreground">{adminUser.role}</p>
+              </div>
+              <ChevronDown className="h-4 w-4 text-muted-foreground group-hover:text-foreground transition-colors hidden md:block" />
+            </div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56 bg-background border-border">
+            <DropdownMenuLabel>
+              <div className="flex flex-col space-y-1">
+                <p className="text-sm font-medium">{adminUser.name}</p>
+                <p className="text-xs text-muted-foreground">{adminUser.email}</p>
+              </div>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem 
+              onClick={handleLogout}
+              className="text-red-600 focus:text-red-600 focus:bg-red-50 dark:focus:bg-red-950/20 cursor-pointer"
+            >
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Logout</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
 
       {/* Module Cards Grid */}
